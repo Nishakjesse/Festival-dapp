@@ -144,13 +144,13 @@ function App() {
 		<div>
 				<Navbar balance={cUSDBalance} />
 
-				<Products
+				<Festival
 					festivals={festivals}
 					buySlot={buySlot}
 					onlyOwner={address}
 				
 				/>
-				<AddProducts AddProduct={AddFestival} /> 
+				<AddFestival AddProduct={AddFestival} /> 
 			</div>
 	
 	
