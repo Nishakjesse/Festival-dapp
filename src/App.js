@@ -7,7 +7,7 @@ import Web3 from "web3";
 import { newKitFromWeb3 } from "@celo/contractkit";
 import BigNumber from "bignumber.js";
 import IERC from "./contract/IERC.abi.json";
-import Marketplace from "./contract/Marketplace.abi.json";
+import Festivals from "./contract/Festivals.abi.json";
 import AddFestival from "./components/AddFestival";
 import Festival from "./components/Festival";
 
@@ -68,7 +68,7 @@ function App() {
 				.shiftedBy(-ERC20_DECIMALS)
 				.toFixed(2);
 			const contract = new kit.web3.eth.Contract(
-				Marketplace,
+				Festival,
 				contractAddress
 			);
 			setcontract(contract);
