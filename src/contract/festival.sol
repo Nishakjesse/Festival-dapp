@@ -127,7 +127,7 @@ contract Festival {
     /**
         * @dev allow programmes's owners to refund a request
      */
-    function fulfillCancelRequest(uint _requestIndex) public {
+    function fulfillCancelRequest(uint _requestIndex) public payable {
         CancelRequest storage currentRequest = cancelRequests[_requestIndex];
         require(!currentRequest.fulfilled, "Request has already been fulfilled");
         require(programmes[currentRequest.programmeIndex].owner == msg.sender, "Only owner of the programme can fulfill and refund a request");
