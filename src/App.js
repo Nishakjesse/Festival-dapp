@@ -68,7 +68,7 @@ function App() {
 				.shiftedBy(-ERC20_DECIMALS)
 				.toFixed(2);
 			const contract = new kit.web3.eth.Contract(
-				Festival,
+				Festivals,
 				contractAddress
 			);
 			setcontract(contract);
@@ -150,7 +150,7 @@ function App() {
 					onlyOwner={address}
 				
 				/>
-				<AddFestival AddProduct={AddFestival} /> 
+				<AddFestival AddFestival={AddFestival} /> 
 			</div>
 	
 	
