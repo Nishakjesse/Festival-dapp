@@ -17,7 +17,7 @@ interface IERC20Token {
 contract Festival {
 
     uint internal programmesLength = 0;
-    address internal cUsdTokenAddress = 0x686c626E48bfC5DC98a30a9992897766fed4Abd3;
+    address internal cUsdTokenAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
 
     struct Programme {
         address payable owner;
@@ -30,6 +30,12 @@ contract Festival {
     }
 
     mapping (uint => Programme) internal programmes;
+
+    // To prevent to access permission from 3rd persons
+    modifier isOwner(address _address) {
+        require(msg.sender == _address, "NOT_OWNER");
+        _;
+    }
 
     function writeProgramme(
         string memory _url,
@@ -51,6 +57,7 @@ contract Festival {
         programmesLength++;
     }
 
+    // Read a specific programme
     function readProgramme(uint _index) public view returns (
         address payable,
         string memory, 
@@ -71,7 +78,33 @@ contract Festival {
         );
     }
 
+    // Edit Programme
+    function editProgramme(
+        uint256 _index,
+        string memory _url,
+        string memory _theme,
+        string memory _description,
+        string memory _location,
+        uint256 _price
+    ) public isOwner(programmes[_index].owner) {
+        programmes[_index].url = _url;
+        programmes[_index].theme = _theme;
+        programmes[_index].description = _description;
+        programmes[_index].location = _location;
+        programmes[_index].price = _price;
+    }
+
+    // Delete Programme
+    function deleteProgramme(uint256 _index)
+        public
+        isOwner(programmes[_index].owner)
+    {
+        delete programmes[_index];
+    }
+
+
     function bookSlot(uint _index) public payable  {
+        require(msg.sender != programmes[_index].owner, "Owners can book slots");
         require(
           IERC20Token(cUsdTokenAddress).transferFrom(
             msg.sender,
